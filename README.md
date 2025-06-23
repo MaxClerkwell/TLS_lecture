@@ -235,6 +235,34 @@ Im TLS-Protokoll gibt es verschiedene Varianten des Diffie-Hellman-Verfahrens:
 * **ECDHE (Elliptic Curve Diffie-Hellman Ephemeral):**
   Moderne, effiziente Variante basierend auf elliptischen Kurven; heute Standard in TLS 1.2 und 1.3.
 
+#### Einfaches Diffie-Hellman-Beispiel mit kleinen Zahlen
+
+##### 1. Öffentliche Parameter festlegen
+- Primzahl \( p = 11 \)
+- Basis \( g = 7 \)
+
+##### 2. Private Schlüssel wählen
+- Alice wählt \( a = 3 \)
+- Bob wählt \( b = 5 \)
+
+##### 3. Öffentliche Schlüssel berechnen
+- Alice berechnet: \( A = g^a \mod p = 7^3 \mod 11 = 343 \mod 11 = 2 \)
+- Bob berechnet: \( B = g^b \mod p = 7^5 \mod 11 = 16807 \mod 11 = 4 \)
+
+##### 4. Öffentliche Schlüssel austauschen
+- Alice sendet \( A = 2 \) an Bob
+- Bob sendet \( B = 4 \) an Alice
+
+##### 5. Gemeinsamen geheimen Schlüssel berechnen
+- Alice berechnet: \( K = B^a \mod p = 4^3 \mod 11 = 64 \mod 11 = 9 \)
+- Bob berechnet: \( K = A^b \mod p = 2^5 \mod 11 = 32 \mod 11 = 9 \)
+
+##### Ergebnis
+- Beide erhalten denselben geheimen Schlüssel: \( K = 9 \)
+- Dieser Schlüssel kann nun für die symmetrische Verschlüsselung der Kommunikation verwendet werden.
+
+---
+
 Neben Diffie-Hellman existieren auch andere Verfahren (z.B. RSA), doch DHE/ECDHE sind besonders beliebt wegen Forward Secrecy: Selbst wenn ein Angreifer später den privaten Schlüssel des Servers kennt, kann er alte Verbindungen nicht nachträglich entschlüsseln.
 
 ---
